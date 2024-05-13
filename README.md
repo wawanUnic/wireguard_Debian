@@ -5,6 +5,34 @@
 sudo apt update
 sudo reboot
 
+// Вход только по ключу для SSH:
+ssh-keygen
+Нажмите «Enter» 3 раза. Создадутся два новых файла
+cd .ssh
+nano id_rsa
+Скопируйте содержимое закрытого ключа из консоли и сохраните его в пустом формате на ПК с помощью текстового редактора. Имя файла не критично.
+Важно: приватный ключ должен содержать:
+-----НАЧНИТЕ ОТКРЫВАТЬ ЗАКРЫТЫЙ КЛЮЧ OPENSSH-----
+...
+-----END OPENSSH ПРИВАТНЫЙ КЛЮЧ-----
+mv id_rsa.pub authorized_keys
+chmod 644 authorized_keys
+В Windows загрузите PuTTYgen, в меню: нажмите Conversions->Import key и найдите сохраненный файл закрытого ключа в D:\Program Files\PuTTY\KEYs
+Нажмите «Сохранить закрытый ключ» в формате PuTTY .ppk.
+Загрузите файл .ppk в свой профиль SSH: Connection->SSH->Auth->Credentials.
+Сохранить свой профиль в PuTTY
+Запрет на вход по паролю:
+sudo nano /etc/ssh/sshd_config
+PasswordAuthentication no
+Port 46 (*2+2)
+sudo service ssh restart
+Проброс порта через SSH-туннель:
+Connection->SSH->Tunnels
+SoursePort 1500
+Destination localhost:1500
+Add
+Сохранить свой профиль в PuTTY
+
 // Устанавливаем веб-сервер для тестов сети
 sudo apt-get install apache2
 sudo service apache2 restart
